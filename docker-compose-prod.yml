@@ -1,0 +1,19 @@
+version: "3"
+services: 
+  frontend:
+    image: "hjwoou/ourdus-fe"
+    stdin_open: true
+    container_name: OurdusFE-React
+
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports: 
+      - "80:80"
+    container_name: Main-Nginx
+      
+  backend:
+    image: "hjwoou/ourdus-be"
+    container_name: OurdusBE-Spring

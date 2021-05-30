@@ -1,0 +1,31 @@
+version: "3"
+
+services: 
+  frontend:
+    build:
+      dockerfile:  Dockerfile.dev
+      context: ./OURDUS_FE
+    volumes: 
+      - /app/node_modules
+      - ./OURDUS_FE:/app
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    container_name: OurdusFE-React-dev
+
+  backend:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./OurdusBE
+    ports:
+      - "8080:8080"
+    container_name: OurdusBE-Spring-dev
+
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports: 
+      - "80:80"
+    container_name: Main-Nginx
